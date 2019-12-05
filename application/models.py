@@ -13,7 +13,7 @@ class shen_user(db.Model,UserMixin):
     def __repr__(self):
         return ''.join([
             'User ID: ', str(self.user_id), '\r\n'
-            'Username: ', self.first_name '\r\n'
+            'Username: ', self.username, '\r\n'
             'Email: ', self.email, '\r\n'
         ])
 
@@ -21,17 +21,17 @@ class shen_user(db.Model,UserMixin):
 class shen_gong(db.Model):
     shen_id = db.Column(db.Integer, primary_key=True)
     shen_name = db.Column(db.String(30), nullable=False)
-    power_rating = db.Column(db.Integer(1), nullable=False)
-    description = db.Column(db.String(500)) nullable=False)
+    power_rating = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.String(500), nullable=False)
 
-    user_id = db.Column(dn.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return ''.join([
-            'Shen Name: ', self.first_name '\r\n'
-            'Power Rating: ', self.power_rating '\r\n'
-            'Description: ', self.description '\r\n'
-        ([
+            'Shen Name: ', self.shen_name, '\r\n'
+            'Power Rating: ', self.power_rating, '\r\n'
+            'Description: ', self.description, '\r\n'
+        ])
 
 @login_manager.user_loader
 def load_user(id):
