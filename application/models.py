@@ -24,7 +24,7 @@ class shen_gong(db.Model):
     power_rating = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(500), nullable=False)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('shen_user.user_id'), nullable=False)
 
     def __repr__(self):
         return ''.join([

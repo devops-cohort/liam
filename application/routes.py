@@ -1,21 +1,21 @@
-from flask import render_template, redirect, url_for, request
 from application import app, db, bcrypt
+from flask import render_template, redirect, url_for, request
 from application.models import shen_user, shen_gong
-from application.forms import UpdateForm, RegistrationForm, LoginForm, UpdateAccountForm
+from application.forms import UpdateForm, RegistrationForm, LoginForm, AccountForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route('/')
 @app.route('/home')
 def home():
-        postData = Posts.query.all()
-        return render_template('home.html', title='Home', posts=postData)
+       #  postData = shen_gong.query.all()
+        return render_template('home.html', title='Home')
 
 @app.route('/login', methods=(['GET', 'POST']))
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     form = LoginForm()
-    if form.vaidate_on_submit():
+    if form.validate_on_submit():
         user=shen_user.query.filter_by(email.form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
@@ -27,7 +27,7 @@ def login():
                 return redirect(url_for('home'))
     return render_template('login.html', title='Login', form=form)
 
-@app.route('/register')
+@app.route('/register', methods=(['GET', 'POST']))
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
@@ -68,7 +68,7 @@ def update():
         print(form.errors)
     return render_template('update.html', title=Update, form=form)
 
-@app.route("logout")
+@app.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for('login'))

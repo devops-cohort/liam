@@ -1,13 +1,13 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from application.models import User
+from application.models import shen_user
 from flask_login import LoginManager, current_user
 from application import login_manager
 
 class RegistrationForm(FlaskForm):
 
-    username = StringField('First Name',
+    username = StringField('Username',
         validators=[
             DataRequired(),
             Length(min=2, max=30)
@@ -21,9 +21,9 @@ class RegistrationForm(FlaskForm):
         ]
     )
 
-    password = PasswordField('Password,'
+    password = PasswordField('Password',
         validators=[
-            DataRequired(),
+            DataRequired()
         ]
     )
 
@@ -34,7 +34,8 @@ class RegistrationForm(FlaskForm):
         ]
     )
 
-class Loginform(FlaskForm):
+    submit = SubmitField('Enter')
+class LoginForm(FlaskForm):
 
     email = StringField('Email',
         validators=[
@@ -45,7 +46,7 @@ class Loginform(FlaskForm):
 
     password = PasswordField('Password',
         validators=[
-            DataRequired(),
+            DataRequired()
         ]
     )
 
@@ -75,14 +76,14 @@ class UpdateForm(FlaskForm):
     )
 
 class AccountForm(FlaskForm):
-    username = StringField('Username'
+    username = StringField('Username',
         validators=[
             DataRequired(),
             Length(min=2, max=30)
         ]
     )
 
-    email = StringField('Email'
+    email = StringField('Email',
         validators=[
             DataRequired(),
             Email()
