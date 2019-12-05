@@ -1,0 +1,55 @@
+<html>
+{% extends "layout.html" %}
+{% block body_content %}
+<div class="form">
+	<form method="POST" action="">
+		{{ form.hidden_tag() }}
+		<div class="form-group">
+                	{{ form.shen_name.label }}
+                        {% if form.shen_name.errors %}
+                        	{{ form.shen_name }}
+                                <div class="error">
+                                	{% for error in form.shen_name.errors %}
+                                        	<span>{{ error }}</span>
+                                        {% endfor %}
+                               </div>
+                        {% else %}
+                        	{{ form.shen_name }}
+                        {%  endif %}
+        </div>
+		<br>
+		<div class="form-group">
+                	{{ form.power_rating.label }}
+                        {% if form.power_rating.errors %}
+                        	{{ form.power_rating }}
+                                <div class="error">
+                                	{% for error in form.power_rating.errors %}
+                                        	<span>{{ error }}</span>
+                                        {% endfor %}
+                                </div>
+                        {% else %}
+                        	{{ form.power_rating }}
+                        {% endif %}
+        </div>
+        <br>
+        <div class="form-group">
+                	{{ form.description.label }}
+                        {% if form.description.errors %}
+                        	{{ form.description }}
+                                <div class="error">
+                                	{% for error in form.description.errors %}
+                                        	<span>{{ error }}</span>
+                                        {% endfor %}
+                                </div>
+                        {% else %}
+                        	{{ form.description }}
+                        {% endif %}
+        </div>
+		<br>
+		<div class="form-group">
+			{{ form.submit }}
+		</div>
+	</form>
+</div>
+{% endblock body_content %}
+</html>
