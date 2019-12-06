@@ -1,13 +1,31 @@
+<!DOCTYPE html>
 <html>
 {% extends "layout.html" %}
 {% block body_content %}
 <head>
     <h1>Home Page</h1>
     <p>Welcome to The Shen Den!</p>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+}
+th {
+  text-align: left;
+}
+</style>
 </head>
+<table style="width:100%">
 <body>
-<p>In this web app we can browse shen and see certain details on them. We can also update them by adding and removing shen.</p>
-<h4>Please register or login and enjoy!<h4>
+<tr>
+<th> Shen Gong Wu </th>
+<th> Power Rating </th>
+<th> Description </th>
+</tr>
+
 </body>
 {% endblock body_content %}
 </html>

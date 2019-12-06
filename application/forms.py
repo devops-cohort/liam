@@ -75,7 +75,7 @@ class UpdateForm(FlaskForm):
         ]
     )
 
-class AccountForm(FlaskForm):
+class UpdateAccountForm(FlaskForm):
     username = StringField('Username',
         validators=[
             DataRequired(),

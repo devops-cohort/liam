@@ -5,10 +5,10 @@ from datetime import datetime
 #remember to set a foreign key - potentially done
 
 class shen_user(db.Model,UserMixin):
-    user_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), nullable=False, unique=True)
     email = db.Column(db.String(30), nullable=False, unique=True)
-    pasword = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(150), nullable=False)
 
     def __repr__(self):
         return ''.join([
@@ -24,7 +24,7 @@ class shen_gong(db.Model):
     power_rating = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(500), nullable=False)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('shen_user.user_id'), nullable=False)
+    id = db.Column(db.Integer, db.ForeignKey('shen_user.id'), nullable=False)
 
     def __repr__(self):
         return ''.join([

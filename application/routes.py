@@ -1,13 +1,13 @@
 from application import app, db, bcrypt
 from flask import render_template, redirect, url_for, request
 from application.models import shen_user, shen_gong
-from application.forms import UpdateForm, RegistrationForm, LoginForm, AccountForm
+from application.forms import UpdateForm, RegistrationForm, LoginForm, UpdateAccountForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route('/')
 @app.route('/home')
 def home():
-       #  postData = shen_gong.query.all()
+         postData = shen_gong.query.all()
         return render_template('home.html', title='Home')
 
 @app.route('/login', methods=(['GET', 'POST']))
@@ -16,11 +16,10 @@ def login():
         return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
-        user=shen_user.query.filter_by(email.form.email.data).first()
+        user=shen_user.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
-
             if next_page:
                 return redirect(next_page)
             else:
@@ -38,15 +37,9 @@ def register():
             username=form.username.data, email=form.email.data, password=hashed_pw)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('shen_place'))
+        return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 
-#unsure on how to implement the shen_place route so remember to come back
-# and sort it
-
-#@app.route('/shen_place')
-#def shen_place():
-   # if current_user.is_authenticated
 
 
 
@@ -62,11 +55,11 @@ def update():
 
         db.session.add(postData)
         db.session.commit()
-        return redirect(url_for('shen_place'))
+        return redirect(url_for('home'))
 
     else:
         print(form.errors)
-    return render_template('update.html', title=Update, form=form)
+    return render_template('update.html', title='Update', form=form)
 
 @app.route("/logout")
 def logout():
@@ -85,4 +78,4 @@ def account():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-    return render_template('account.html', title+'Account', form=form)
+    return render_template('account.html', title='Account', form=form)
