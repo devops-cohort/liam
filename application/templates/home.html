@@ -31,7 +31,7 @@ th {
 <td>{{ shenpost.shen_name }}</td>
 <td>{{ shenpost.power_rating }}</td>
 <td>{{ shenpost.description }}</td>
-<td><button type="button"> Delete </button></td>
+<td><a href="/delete/{{ shenpost.id }}">Delete<a/></td>
 </tr>
 {% endfor %}
 </body>

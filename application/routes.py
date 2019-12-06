@@ -1,14 +1,15 @@
 from application import app, db, bcrypt
 from flask import render_template, redirect, url_for, request
 from application.models import shen_user, shen_gong
-from application.forms import UpdateForm, RegistrationForm, LoginForm, UpdateAccountForm
+from application.forms import UpdateForm, RegistrationForm, LoginForm, UpdateAccountForm, DeleteForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route('/')
 @app.route('/home')
 def home():
+        form=DeleteForm
         postData = shen_gong.query.all()
-        return render_template('home.html', title='Home',shenposts=postData)
+        return render_template('home.html', title='Home', shenposts=postData)
 
 @app.route('/login', methods=(['GET', 'POST']))
 def login():
@@ -79,3 +80,17 @@ def account():
         form.username.data = current_user.username
         form.email.data = current_user.email
     return render_template('account.html', title='Account', form=form)
+
+@app.route('/delete/<int:id>', methods=['GET', 'POST'])
+# <int:id> converts str to an int
+# queries the database for the id then the try method deletes the correspnding record with the id
+# then commits it and returns the user home
+@login_required
+def delete(id):
+    shendelete = shen_gong.query.get(id)
+    try:
+        db.session.delete(shendelete)
+        db.session.commit()
+        return redirect(url_for('home'))
+    except:
+        return redirect(url_for('home'))
