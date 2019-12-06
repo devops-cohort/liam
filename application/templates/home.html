@@ -24,8 +24,16 @@ th {
 <th> Shen Gong Wu </th>
 <th> Power Rating </th>
 <th> Description </th>
+<th> Delete Record </th>
 </tr>
-
+{% for shenpost in shenposts %}
+<tr>
+<td>{{ shenpost.shen_name }}</td>
+<td>{{ shenpost.power_rating }}</td>
+<td>{{ shenpost.description }}</td>
+<td><button type="button"> Delete </button></td>
+</tr>
+{% endfor %}
 </body>
 {% endblock body_content %}
 </html>

@@ -7,8 +7,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route('/')
 @app.route('/home')
 def home():
-         postData = shen_gong.query.all()
-        return render_template('home.html', title='Home')
+        postData = shen_gong.query.all()
+        return render_template('home.html', title='Home',shenposts=postData)
 
 @app.route('/login', methods=(['GET', 'POST']))
 def login():
@@ -50,9 +50,9 @@ def update():
         postData = shen_gong(
             shen_name=form.shen_name.data,
             power_rating=form.power_rating.data,
-            description=form.description.data
+            description=form.description.data,
+            shen_user=current_user,
         )
-
         db.session.add(postData)
         db.session.commit()
         return redirect(url_for('home'))

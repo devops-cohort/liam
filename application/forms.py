@@ -64,7 +64,6 @@ class UpdateForm(FlaskForm):
     power_rating = IntegerField('Power Rating',
         validators=[
             DataRequired(),
-            Length(min=1, max=1)
         ]
     )
 
@@ -74,6 +73,7 @@ class UpdateForm(FlaskForm):
             Length(min=2, max=500)
         ]
     )
+    submit = SubmitField('Submit')
 
 class UpdateAccountForm(FlaskForm):
     username = StringField('Username',
