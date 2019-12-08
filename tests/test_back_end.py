@@ -34,7 +34,7 @@ class TestBase(TestCase):
 
         # save users to database
         db.session.add(admin)
-        db.session.add(employee)
+        db.session.add(user)
         db.session.commit()
 
     def tearDown(self):
@@ -67,28 +67,24 @@ class ViewTest(TestBase):
         self.assertEqual(response.status_code, 200)
 
     def test_userlogin_view(self):
-        target_url = url_for('user', id=2)
+        target_url = url_for('account')
         redirect_url = url_for('login', next=target_url)
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, redirect_url)
-
-    def test_userregister_view(self):
-        target_url = url_for('user', id=2)
-        redirect_url = url_for('register', next=target_url)
+        response=self.client.get(target_url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, redirect_url)
 
 class ModelTest(TestBase):
 
     def test_shen_user_model(self):
-        user = shen_user(first_name="yeetdude", email="yeetdude@gmail.com", password="yeet1")
+        user = shen_user(username="yeetdude", email="yeetdude@gmail.com", password="yeet1")
 
         db.session.add(user)
         db.session.commit()
 
-        self.assertEqual(User.query.count(), 3)
+        self.assertEqual(shen_user.query.count(), 3)
 
     def test_shen_gong_model(self):
-        update = shen_gong(shen_name="Jetbootsu", power_rating="3", description="Allows the user to defy gravity.")
+        update = shen_gong(shen_name="Jetbootsu", power_rating="3", description="Allows the user to defy gravity.", shen_user_id=2)
         db.session.add(update)
         db.session.commit()
+        self.assertEqual(shen_gong.query.count(), 1)
