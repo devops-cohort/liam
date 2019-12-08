@@ -13,7 +13,7 @@ class TestBase(TestCase):
         # pass in test configurations
         config_name = 'testing'
         app.config.update(
-            SQLALCHEMY_DATABASE_URI='mysql+pymysql://'+str(getenv('MYSQL_USER'))+':'+str(getenv('MYSQL_PASSWORD'))+'@'+st$
+            SQLALCHEMY_DATABASE_URI='mysql+pymysql://'+getenv('MYSQL_USER')+":"+getenv('MYSQL_PASSWORD')+"@"+getenv('MYSQL_HOST')+"/"+getenv('MYSQL_TDB')
         )
         return app
 
@@ -50,16 +50,12 @@ class ViewTest(TestBase):
         response =self.client.get(url_for('home'))
         self.assertEqual(response.status_code, 200)
 
-    def test_aboutpage_view(self):
-        response =self.client.get(url_for('about'))
+    def test_updatepage_view(self):
+        response =self.client.get(url_for('update'))
         self.assertEqual(response.status_code, 200)
 
     def test_registerpage_view(self):
         response =self.client.get(url_for('register'))
-        self.assertEqual(response.status_code, 200)
-
-    def test_postpage_view(self):
-        response =self.client.get(url_for('post'))
         self.assertEqual(response.status_code, 200)
 
     def test_accountpage_view(self):
@@ -84,15 +80,15 @@ class ViewTest(TestBase):
 
 class ModelTest(TestBase):
 
-    def test_user_model(self):
-        user = User(first_name="yeet", last_name="yeet", email="yeet@gmail.com", password="yeet1")
+    def test_shen_user_model(self):
+        user = shen_user(first_name="yeetdude", email="yeetdude@gmail.com", password="yeet1")
 
         db.session.add(user)
         db.session.commit()
 
         self.assertEqual(User.query.count(), 3)
 
-    def test_posts_model(self):
-        post = Posts(title="Sir", content="abcdefghijklmnopqrstivwyz")
-        db.session.add(post)
+    def test_shen_gong_model(self):
+        update = shen_gong(shen_name="Jetbootsu", power_rating="3", description="Allows the user to defy gravity.")
+        db.session.add(update)
         db.session.commit()
